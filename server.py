@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-MY_EMAIL="tariocreations22@yahoo.com"
+MY_EMAIL="mosehtario@gmail.com"
 # tariocreations@yahoo.com
 APP_PASSWORD=environ.get("APP_PASSWORD")
 # "usvvnkxjidibssrk"
@@ -15,7 +15,6 @@ year=dt.datetime.today().year
 
 
 app=Flask(__name__)
-app.config.from_object('config.ProdConfig')
 
 # @app.route("/", methods=['GET', 'POST'])
 # def index():
@@ -43,7 +42,7 @@ def contact():
         
 def send_email(name, email, subject, message):
     email_message = f"Subject:New Message\n\nName: {name}\nEmail: {email}\nSubject: {subject}\nMessage:{message}"
-    with smtplib.SMTP("smtp.mail.yahoo.com") as connection:
+    with smtplib.SMTP("smtp.mail.yahoo.com", 587) as connection:
         connection.starttls()
         connection.login(MY_EMAIL, APP_PASSWORD)
         connection.sendmail(MY_EMAIL, MY_EMAIL, email_message)
@@ -65,5 +64,6 @@ def about():
 def portfolio():
     return render_template("portfolio.html", year=year)
 
-if __name__=="__main__":
-    app.run(port=7000)
+
+    if __name__=="__main__":
+        app.run(host='0.0.0.0')
