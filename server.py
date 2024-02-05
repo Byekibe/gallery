@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-MY_EMAIL="mosehtario@gmail.com"
+MY_EMAIL=environ.get("MY_EMAIL")
 # tariocreations@yahoo.com
 APP_PASSWORD=environ.get("APP_PASSWORD")
 # "usvvnkxjidibssrk"
@@ -42,7 +42,7 @@ def contact():
         
 def send_email(name, email, subject, message):
     email_message = f"Subject:New Message\n\nName: {name}\nEmail: {email}\nSubject: {subject}\nMessage:{message}"
-    with smtplib.SMTP("smtp.mail.yahoo.com", 587) as connection:
+    with smtplib.SMTP("smtp.gmail.com", 587) as connection:
         connection.starttls()
         connection.login(MY_EMAIL, APP_PASSWORD)
         connection.sendmail(MY_EMAIL, MY_EMAIL, email_message)
